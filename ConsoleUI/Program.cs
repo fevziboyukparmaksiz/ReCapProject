@@ -1,13 +1,42 @@
 ﻿
 using Business.Concrete;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 
 Console.WriteLine();
 
-CarManager carManager = new CarManager(new InMemoryDal());
+//Car();
 
-foreach (var car in carManager.GetAll())
+//GetCarsByBrandId();
+
+//GetCarDetails();
+
+static void Car()
 {
-    Console.WriteLine(car.Description);
+    CarManager carManager = new CarManager(new EfCarDal());
+
+    foreach (var car in carManager.GetCarsByBrandId(5))
+    {
+        Console.WriteLine(car.Description);
+    }
 }
 
+static void GetCarsByBrandId()
+{
+    CarManager carManager = new CarManager(new EfCarDal());
+
+    foreach (var car in carManager.GetCarsByBrandId(1))
+    {
+        Console.WriteLine(car.Description);
+    }
+}
+
+static void GetCarDetails()
+{
+    CarManager carManager = new CarManager(new EfCarDal());
+    foreach (var car in carManager.GetCarDetails())
+    {
+        Console.WriteLine(car.BrandName+" : "+ car.CarName+" : " + car.ColorName +" : "+car.DailyPrice);
+    }
+}
