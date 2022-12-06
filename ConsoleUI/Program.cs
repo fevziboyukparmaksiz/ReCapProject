@@ -3,40 +3,38 @@ using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 
 Console.WriteLine();
 
-//Car();
+
 
 //GetCarsByBrandId();
 
-//GetCarDetails();
+UserManager userManager = new UserManager(new EfUserDal());
 
-static void Car()
-{
-    CarManager carManager = new CarManager(new EfCarDal());
+userManager.Add(new User { FirstName = "Fevzi", LastName = "Böyükparmaksız", Email = "asdasda@gmail.com", Password = "12345" });
 
-    foreach (var car in carManager.GetCarsByBrandId(5))
-    {
-        Console.WriteLine(car.Description);
-    }
-}
+
+
 
 static void GetCarsByBrandId()
 {
     CarManager carManager = new CarManager(new EfCarDal());
 
-    foreach (var car in carManager.GetCarsByBrandId(1))
+    var result = carManager.GetCarsByBrandId(2);
+    if (result.Success == true)
     {
-        Console.WriteLine(car.Description);
+        foreach (var car in result.Data)
+        {
+            Console.WriteLine(car.Description);
+        }
     }
+    else
+    {
+        Console.WriteLine(result.Message);
+    }
+
 }
 
-static void GetCarDetails()
-{
-    CarManager carManager = new CarManager(new EfCarDal());
-    foreach (var car in carManager.GetCarDetails())
-    {
-        Console.WriteLine(car.BrandName+" : "+ car.CarName+" : " + car.ColorName +" : "+car.DailyPrice);
-    }
-}
+
