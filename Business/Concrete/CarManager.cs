@@ -39,17 +39,17 @@ namespace Business.Concrete
 
         public IDataResult<List<CarBrandColorDTO>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarBrandColorDTO>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarBrandColorDTO>>(_carDal.GetCarDetails(),Messages.CarDetailsListed);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId==brandId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId==brandId),Messages.CarListed);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId==colorId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId==colorId),Messages.CarListed);
         }
     }
 }
